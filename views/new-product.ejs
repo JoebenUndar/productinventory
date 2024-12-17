@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Information Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #eef2f3); /* Subtle gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px; /* Smooth rounded corners */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Elevated card effect */
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 0.6s ease; /* Smooth fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #007bff;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 12px; /* Rounded input fields */
+            border: 1px solid #ced4da;
+            padding: 10px;
+            transition: all 0.3s ease; /* Smooth focus effect */
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        select.form-control {
+            appearance: none; /* Clean dropdown */
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23495057" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient button */
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3, #003e7e);
+            transform: scale(1.03); /* Subtle zoom effect */
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #495057, #343a40);
+            transform: scale(1.03);
+        }
+
+        .required::after {
+            content: "*";
+            color: red;
+            margin-left: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Product Information Form</h2>
+        <form action="/products/create-product" method="POST">
+            <div class="mb-3">
+                <label for="product" class="form-label">Product Name <span class="required"></span></label>
+                <input type="text" name="product" id="product" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category <span class="required"></span></label>
+                <select name="category" id="category" class="form-control" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="foods">Foods</option>
+                    <option value="sports">Sports</option>
+                    <option value="books">Books</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity <span class="required"></span></label>
+                <input type="number" name="quantity" id="quantity" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Price <span class="required"></span></label>
+                <input type="number" step="0.01" name="price" id="price" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/products" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>

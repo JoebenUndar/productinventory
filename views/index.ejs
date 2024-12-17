@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inventory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f4f5f7;
+            font-family: 'Arial', sans-serif;
+            color: #343a40;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #4a90e2, #0066ff);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Table Container */
+        .table-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Buttons */
+        .btn-primary, .btn-danger, .btn-info, .btn-warning {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4a90e2, #007bff);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff5f57, #ff3d3d);
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #ff3d3d, #e60000);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            border: none;
+        }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #138496, #0c6c84);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e6a700);
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e6a700, #c79100);
+        }
+
+        /* Table Styles */
+        .table th {
+            background-color: #343a40;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e7f1ff;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover Effects */
+        .table-container h2:hover {
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <header>
+            <h1>Product Inventory System</h1>
+            <p>Manage and track your product inventory efficiently</p>
+        </header>
+
+        <div class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-secondary">Product List</h2>
+                <a href="products/new-product" class="btn btn-primary">+ Add Product</a>
+            </div>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach((product, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= product._id %></td>
+                            <td><%= product.product %></td>
+                            <td><%= product.category %></td>
+                            <td><%= product.quantity %></td>
+                            <td>₱<%= product.price %></td>
+                            <td>
+                                <a href="/products/<%= product._id %>/" class="btn btn-sm btn-info text-white">View</a>
+                                <a href="/products/<%= product._id %>/edit" class="btn btn-sm btn-warning text-dark">Edit</a>
+                                <form action="/products/<%= product._id %>?_method=DELETE" method="post" class="d-inline" onsubmit="return confirmDelete()">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" 
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script> 
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this product?");
+        }
+    </script>
+</body>
+</html>
